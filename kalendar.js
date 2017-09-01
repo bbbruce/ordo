@@ -77,6 +77,7 @@ var Kalendar = {
 
 // TODO: Sunday within the Octave of the Body of Christ...
 // Better ways to do octaves in general??
+// TODO: Saturday Office of the B.V.M.
 var KalendarYear = {
   setup(year) {
     this.year = year;
@@ -307,12 +308,17 @@ var KalendarCelebration = {
   },
   getValue(valname) {
     var name = this.getName();
-    if(meta[name] == undefined) {
+    if(this.cele[valname]) {
+      return(this.cele[valname]);
+    } else if(meta[name] == undefined) {
       console.log(name + " not found in meta");
       return(undefined);
     } else {
       return(meta[name][valname]);
     }
+  },
+  setValue(valname, value) {
+    this.cele[valname] = value;
   },
   getValueAsString(valname) {
     var o = this.getValue(valname);
