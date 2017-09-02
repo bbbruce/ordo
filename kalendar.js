@@ -48,14 +48,14 @@ var Kalendar = {
   isFast(date) {
     // Mon, Wed, Fri in Advent
     var dow = date.getDay();
-    if(date > KalendarYear.get_advent(date.getFullYear()) &&
+    if(date > KalendarYear.getAdvent(date.getFullYear()) &&
        date < new Date(date.getFullYear(), 11, 25) &&
        (dow == 1 || dow == 3 || dow == 5)) {
       return(true);
     }
     // All days in Lent except Sundays
-    if(date >= KalendarYear.get_moveable(date.getFullYear(), "Ash Wednesday") &&
-       date <= KalendarYear.get_moveable(date.getFullYear(), "Holy Saturday") &&
+    if(date >= KalendarYear.getMoveable(date.getFullYear(), "Ash Wednesday") &&
+       date <= KalendarYear.getMoveable(date.getFullYear(), "Holy Saturday") &&
        dow != 0) {
       return(true);
     }
@@ -85,7 +85,7 @@ var KalendarYear = {
     this.dates = [[], [], [], [], [], [], [], [], [], [], [], []];
     // initialize the calendar
     for (var m in moveable) {
-      var d = this.get_moveable(year, m);
+      var d = this.getMoveable(year, m);
       this.addDate2(d, m);
     }
     for (var f in fixed) {
@@ -132,7 +132,7 @@ var KalendarYear = {
       }
     }
   },
-  get_easter(y) {
+  getEaster(y) {
     var pfm = ["A5", "M25", "A13", "A2", "M22", 
                "A10", "M30", "A18", "A7", "M27", 
                "A15", "A4", "M24", "A12", "A1", 
@@ -151,20 +151,21 @@ var KalendarYear = {
   },
   // TODO: Commemoration of Feria?
   // TODO: Rogation days...
-  get_moveable(y, name) {
+  getMoveable(y, name) {
     var m = moveable[name];
     if("basis" in m) {
-      return(addDays(eval("this.get_" + m["basis"])(y), m["diff"]));
+      return(addDays(eval("this.get" + m["basis"].substr(0, 1).toUpperCase() + 
+                          m["basis"].substr(1))(y), m["diff"]));
     }
   },
-  get_advent(y) {
+  getAdvent(y) {
     var xmas = new Date(y, 11, 25); 
     var xmasdow = xmas.getDay(); // 0 = Sunday
     var weeks;
     if(xmasdow != 0) { weeks = 3; } else { weeks = 4 };
     return(addDays(xmas, 0 - xmasdow - 7 * weeks));
   },
-  get_ember(y) {
+  getEmber(y) {
     // First Wednesday after Holy Cross
     var hc = new Date(y, 8, 14);
     var hcdow = hc.getDay();
@@ -174,14 +175,18 @@ var KalendarYear = {
       return(addDays(hc, 7 - Math.abs(3 - hcdow)));
     }
   },
+  // TODO: is the Octave itself treated special
+  // see page xxviii re: removing other octave days
+  addOctaveSunday(date, octavename) {    
+    var odate = addDays(date, 7 - date.getDay());
+    var odateobj = this.getDate(odate);
+    odateobj.removeMatch(/within[\d\D]+octave/i);
+    this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+  },
   addSundaysAfterEpiphany() {
-    // also add the Sunday within Octave of the Nativity
-    var e = new Date(this.year, 11, 25);
-    this.addDate2(addDays(e, 7 - e.getDay()), "Sunday within the Octave of the Nativity");
-
     var suffix = " Sunday after the Epiphany"
     var e = new Date(this.year, 0, 6);
-    var s = this.get_moveable(this.year, "The Sunday of Septuagesima");
+    var s = this.getMoveable(this.year, "The Sunday of Septuagesima");
     var n = 0;
     var edow = e.getDay();
     // add first one
@@ -197,8 +202,8 @@ var KalendarYear = {
   // TODO: there can be 21 weeks in Pentecost in Orthodox Reckoning... what to do there??
   // TODO: deal with exceptions to typical metadata (e.g., demotion vs. translation)
   addSundaysAfterTrinity() {
-    var t = this.get_moveable(this.year, "The Feast of the Most Holy Trinity");
-    var a = this.get_moveable(this.year, "I Sunday in Advent");
+    var t = this.getMoveable(this.year, "The Feast of the Most Holy Trinity");
+    var a = this.getMoveable(this.year, "I Sunday in Advent");
     var w = Math.floor(diffDays(a, t) / 7); // How many weeks in Pentecost
     console.log(w);
     var nepi = (w - 24); // number of Epiphany Sundays resumed
@@ -208,6 +213,7 @@ var KalendarYear = {
       o.addDate2(t, roman_numeral(n + 1) + " Sunday after Pentecost [" + 
                     roman_numeral(n) + " Trinity]");
     };
+    // TODO: p. 424 explains that the I Sunday may be in the previous month
     var mthadd = function(o, t) {  // add I, II, III... in August, in September, etc.
       if(t.getMonth() > 6) { // August onwards
         var x = Math.floor(diffDays(t, new Date(t.getFullYear(), t.getMonth(), 1)) / 7) + 1;
@@ -239,6 +245,10 @@ var KalendarYear = {
       }
       mthadd(this, t);
     }
+    // add the Sunday within Octave of the Nativity, Corpus Christi
+    this.addOctaveSunday(new Date(this.year, 11, 25), "the Nativity");
+    this.addOctaveSunday(this.getMoveable(this.year, "The Feast of the Most Holy Body of Christ"), "Corpus Christi");
+    this.addOctaveSunday(this.getMoveable(this.year, "The Ascension of Our Lord"), "the Ascension");
   }
 };
 
@@ -270,6 +280,10 @@ var KalendarDate = {
   },
   match(pattern) {
     return(this.celes.some(function(c) { return(c.match(pattern)); }));
+  },
+  removeMatch(pattern) {
+    var i = this.celes.findIndex(function(c) { return(c.getName().search(pattern) !== -1)  });
+    this.celes = this.celes.slice(0, i).concat(this.celes.slice(i + 1));
   },
   valueEqual(valname, value) {
     return(this.celes.some(function(c) { 
