@@ -1,4 +1,7 @@
-function updateKalendar(d) {
+"use strict"
+import {addDays, diffDays, diffWeeks, addWeek, subWeek, addDay, subDay} from './date_calcs.jsm';
+
+export default function updateKalendar(d, k) {
   var i = 1;
   var head = true;
   var timewidget = '<tr><td colspan="6" align="center"><div class="timenav"> \
@@ -13,13 +16,13 @@ function updateKalendar(d) {
       </div> \
     </div></td></tr>';
   var makeClassSpan = function(fldstr) {
-    rn = ranknames[fldstr];
+    var rn = ranknames[fldstr];
     return("<span" + (rn == undefined ? ">" : (" title='" + rn + "'>")) +
            fldstr + "</span>");
   }
   var makeCelebrationTable = function(d) {
-    cc = k.getDate(d).getCelebrations();
-    m = cc.map(
+    var cc = k.getDate(d).getCelebrations();
+    var m = cc.map(
       function(c, i) { 
         return(
           "<tr" +

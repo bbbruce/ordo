@@ -1,3 +1,7 @@
+import Kalendar from './kalendar.js';
+import Kalendar_old from './kalendar_old.js';
+import {addDay} from './date_calcs.jsm';
+
 QUnit.test("Match new vs. old", function( assert ) {
   function testYear(year) {
     var d = new Date(year, 0, 1);

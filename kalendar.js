@@ -1,51 +1,9 @@
 "use strict"
 // TODO: Requiem Masses (see Ordo)
+import {romanNumeral} from './roman_numeral.jsm';
+import {addDays, diffDays, diffWeeks, addWeek, subWeek, addDay, subDay} from './date_calcs.jsm';
 
-function addDays(date, days) {
-  var result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result;
-}
-
-function subDay(date) {
-  return(addDays(date, -1));
-}
-
-function addDay(date) {
-  return(addDays(date, 1));
-}
-
-function subWeek(date) {
-  return(addDays(date, -7));
-}
-
-function addWeek(date) {
-  return(addDays(date, 7));
-}
-
-function diffDays(date2, date1) {
-  return(Math.round(date2 - date1)/(24 * 60 * 60 * 1000));
-}
-
-function diffWeeks(date2, date1) {
-  return(Math.floor(diffDays(date2, date1) / 7));
-}
-
-// returns the roman numeral for n
-function roman_numeral(n) {
-  var r = { "M": 1000, "CM": 900, "D": 500, "CD": 400, "C": 100, "XC": 90,
-            "L": 50, "XL": 40, "X": 10, "IX": 9, "V": 5, "IV": 4, "I": 1 };
-  var rn = "";
-  for (var i in r) {
-    while (n >= r[i]) {
-      rn += i;
-      n -= r[i];
-    }
-  }
-  return rn;
-}
-
-class Kalendar {
+export default class Kalendar {
   // y is the "base year" - others added as needed
   constructor(y) {
     this.k = {};
@@ -308,7 +266,7 @@ class KalendarYear {
     } else {
       this.addHolyFamily(ei, false);
       n = 0;
-      this.addSunday(ei, roman_numeral(++n) + suffix, "Sd2");
+      this.addSunday(ei, romanNumeral(++n) + suffix, "Sd2");
     }
 
     var w = Kalendar.sundaysInEpiphany(this.year);  
@@ -320,10 +278,10 @@ class KalendarYear {
     while(addWeek(ei) < s) {
       ei = addWeek(ei);
       if(n < 6) {
-        this.addSunday(ei, roman_numeral(++n) + suffix);
+        this.addSunday(ei, romanNumeral(++n) + suffix);
       } else {
-        this.addSunday(ei, roman_numeral(p++) + " Sunday after Pentecost [" + 
-                  roman_numeral(p - 2) + " Trinity] (Anticipated) [" + roman_numeral(++n) + " Epiphany]");
+        this.addSunday(ei, romanNumeral(p++) + " Sunday after Pentecost [" + 
+                  romanNumeral(p - 2) + " Trinity] (Anticipated) [" + romanNumeral(++n) + " Epiphany]");
       }
     }
   } 
@@ -338,8 +296,8 @@ class KalendarYear {
     var esun = 6 - (w - 25); // which one to start with
     var n = 0;
     var stdadd = function(o, t, n) {  // the usual name to add
-      o.addSunday(t, roman_numeral(n + 1) + " Sunday after Pentecost [" + 
-                  roman_numeral(n) + " Trinity]");
+      o.addSunday(t, romanNumeral(n + 1) + " Sunday after Pentecost [" + 
+                  romanNumeral(n) + " Trinity]");
     };
     var mthadd = function(o, t) {  // add I, II, III... in August, in September, etc.
       if(t.getMonth() == 6 && t.getDate() >= 29 || // on or after July 29th (see p. 424 Monastic Diurnal)
@@ -363,7 +321,7 @@ class KalendarYear {
           sun_in_month += 1
         }
 
-        var d = o.addDate2(t, "(" + roman_numeral(sun_in_month) + " of " + months[m] + ")");
+        var d = o.addDate2(t, "(" + romanNumeral(sun_in_month) + " of " + months[m] + ")");
         d.klass = " ";
       }
     };
@@ -374,8 +332,8 @@ class KalendarYear {
       if(n < 23) {
         stdadd(this, t, n);
       } else if(nepi > 0) {
-        this.addSunday(t, roman_numeral(esun) + " Sunday after Epiphany (Resumed) [" +
-                       roman_numeral(n) + " Trinity]");
+        this.addSunday(t, romanNumeral(esun) + " Sunday after Epiphany (Resumed) [" +
+                       romanNumeral(n) + " Trinity]");
         --nepi;
         ++esun;
       } 
@@ -396,9 +354,9 @@ class KalendarYear {
     if(osun == 29) {
       // yes, are they from Epiphany or Pentecost?
       if(wepi < 6) {
-        this.addSunday(subDay(Kalendar.getSeptuagesima(this.year)), "Office of the " + roman_numeral(wepi + 1) + " Sunday After Epiphany");
+        this.addSunday(subDay(Kalendar.getSeptuagesima(this.year)), "Office of the " + romanNumeral(wepi + 1) + " Sunday After Epiphany");
       } else {
-        this.addSunday(subDay(sunnxt), "Office of the " + roman_numeral(w) + " Sunday After Pentecost [" + roman_numeral(w - 1) + " Trinity]");
+        this.addSunday(subDay(sunnxt), "Office of the " + romanNumeral(w) + " Sunday After Pentecost [" + romanNumeral(w - 1) + " Trinity]");
       }
     }
 

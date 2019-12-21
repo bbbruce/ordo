@@ -8,12 +8,14 @@
     <table id="kalendar"></table>
   </body>
   <script src="kalendar_data.js"></script>
-  <script src="kalendar.js"></script>
-  <script src="kalendar_view.js"></script>
+  <script type="module" src="kalendar.js"></script>
+  <script type="module" src="kalendar_view.js"></script>
   <script src="js/jquery-2.2.4.min.js"></script>
-  <script>
+  <script type="module">
+    import Kalendar from './kalendar.js';
+    import updateKalendar from './kalendar_view.js';
     var d = new Date();
     var k = new Kalendar(d.getFullYear()); 
-    updateKalendar(d); 
+    updateKalendar(d, k); 
   </script>
 </html>
