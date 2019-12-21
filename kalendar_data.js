@@ -628,8 +628,15 @@ var meta = {
   "III Sunday in Lent": { "class": "Sd1", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "St. Cuthbert, Bishop & Confessor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Monday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "Tuesday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "St. Benedict, Abbot": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "Tuesday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" },
+  // Per Fr. Fenton:
+  // In conversation with Fr Edward Hughes, we determined that 
+  // St Benedict should be elevated in status for our Vicariate 
+  // (a) because we are, especially, a Benedictine sub-order according 
+  //     to our founding documents and 
+  // (b) we don't don't keep the solemnity in July as 
+  //     the Benedictine Houses do.  
+  "St. Benedict, Abbot": { "class": "D1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Wednesday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Thursday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Friday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
