@@ -210,7 +210,8 @@ var moveable = {
   "Saturday in the Octave of Easter (Sabbato in Albis)": { "basis": "easter", "diff": 6 },
   "The Octave of Easter (Dominica in Albis; Low Sunday)": { "basis": "easter", "diff": 7 },
   "II Sunday after Easter": { "basis": "easter", "diff": 14 },
-  // "Solemnity of St. Joseph, Spouse of the B.V.M.": { "basis": "easter", "diff": 17 }, 
+  "Solemnity of St. Joseph, Spouse of the B.V.M.": { "basis": "easter", "diff": 17 }, 
+  "Octave of the Solmenity of St Joseph": { "basis": "easter", "diff": 24 }, 
   "III Sunday after Easter": { "basis": "easter", "diff": 21 },
   "IV Sunday after Easter": { "basis": "easter", "diff": 28 },
   "V Sunday after Easter": { "basis": "easter", "diff": 35 },
@@ -263,7 +264,6 @@ var fixed = {
   // trailing space is added to differentiate which is later removed
   "The Circumcision of Our Lord": { "m":  1, "d":  1 }, 
   "(Octave Day of the Nativity)": { "m":  1, "d":  1 }, 
-  "Most Holy Name of Jesus": { "m":  1, "d":  2 }, 
   "Octave Day of St. Stephen": { "m":  1, "d":  2 }, 
   "Octave Day of St. John, Apostle & Evangelist": { "m":  1, "d":  3 }, 
   "Octave Day of the Holy Innocents": { "m":  1, "d":  4 }, 
@@ -322,11 +322,11 @@ var fixed = {
   "St. Simeon of Jerusalem, Bishop & Martyr": { "m":  2, "d": 18 }, 
   "Chair of St. Peter at Antioch": { "m":  2, "d": 22 }, 
   "Commemoration of St. Paul ": { "m":  2, "d": 22 }, 
-  "Vigil of St. Matthias": { "m":  2, "d": 23 }, 
-  "St. Matthias, Apostle": { "m":  2, "d": 24 }, 
-  "St. Walburga of Heidenheim, Virgin": { "m":  2, "d": 25 }, 
-  "St. Raphael of Brooklyn, Bishop & Confessor": { "m":  2, "d": 27 }, 
-  "St. Alexander of Alexandria, Bishop & Confessor": { "m":  2, "d": 27 }, 
+  "Vigil of St. Matthias": { "m":  2, "d": 23, "addleap": "yes" }, 
+  "St. Matthias, Apostle": { "m":  2, "d": 24, "addleap": "yes" }, 
+  "St. Walburga of Heidenheim, Virgin": { "m":  2, "d": 25, "addleap": "yes" }, 
+  "St. Raphael of Brooklyn, Bishop & Confessor": { "m":  2, "d": 27, "addleap": "yes" }, 
+  "St. Alexander of Alexandria, Bishop & Confessor": { "m":  2, "d": 27, "addleap": "yes" }, 
   "St. David of Wales, Bishop & Confessor": { "m":  3, "d":  1 }, 
   "St. Chad, Bishop & Confessor": { "m":  3, "d":  2 }, 
   "Ss. Perpetua & Felicitas, Martyrs": { "m":  3, "d":  6 }, 
@@ -355,7 +355,7 @@ var fixed = {
   "Ss. Soter & Caius, Martyrs": { "m":  4, "d": 22 }, 
   "St. George, Martyr": { "m":  4, "d": 23 }, 
   "Day II within the Octave of St. George": { "m":  4, "d": 24 }, 
-  "St. Mark, Evangelist<br>The Greater Litanies": { "m":  4, "d": 25 }, 
+  "St. Mark, Evangelist": { "m":  4, "d": 25 }, 
   "Day III within the Octave of St. George": { "m":  4, "d": 25 }, 
   "Day IV within the Octave of St. George": { "m":  4, "d": 26 }, 
   "St. Cletus & Marcellinus, Martyrs": { "m":  4, "d": 26 }, 
@@ -637,9 +637,9 @@ var fixed = {
 
 var meta = {
   "": { "class": " "},
-  "(Octave Day of the Nativity)": { "class": "OD3", "feast": "The Nativity of Our Lord" },
-  "(Baptism of Our Lord)": { "class": " " },
-  "(All Souls’ Day)": { "class": " " },
+  "(Octave Day of the Nativity)": { "class": "Comm", "office": "&nbsp;", "feast": "The Nativity of Our Lord" },
+  "(Baptism of Our Lord)": { "class": "Comm", "office": "&nbsp;" },
+  "(All Souls’ Day)": { "class": "Comm", "office": "&nbsp;" },
   "The Circumcision of Our Lord": { "class": "D2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n", "rank": 1 }, 
   "Most Holy Name of Jesus": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "y", "rank": 23 }, 
   "St. Titus, Bishop & Confessor": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -702,7 +702,7 @@ var meta = {
   "St. Matthias, Apostle": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 10 }, 
   "St. Walburga of Heidenheim, Virgin": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "The Sunday of Quinquagesima": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
-  "St. Raphael of Brooklyn, Bishop & Confessor": { "class": "D1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 26 }, 
+  "St. Raphael of Brooklyn, Bishop & Confessor": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 26 }, 
   "St. Alexander of Alexandria, Bishop & Confessor": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Ash Wednesday": { "class": "F1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. David of Wales, Bishop & Confessor": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -736,8 +736,15 @@ var meta = {
   "III Sunday in Lent": { "class": "Sd1", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "St. Cuthbert, Bishop & Confessor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Monday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "Tuesday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "St. Benedict, Abbot": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "Tuesday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" },
+  // Per Fr. Fenton:
+  // In conversation with Fr Edward Hughes, we determined that 
+  // St Benedict should be elevated in status for our Vicariate 
+  // (a) because we are, especially, a Benedictine sub-order according 
+  //     to our founding documents and 
+  // (b) we don't don't keep the solemnity in July as 
+  //     the Benedictine Houses do.  
+  "St. Benedict, Abbot": { "class": "D1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Wednesday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Thursday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Friday after Lent III": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -787,7 +794,7 @@ var meta = {
   "St. George, Martyr": { "class": "D1", "octave": "C", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 27 }, 
   "The Octave of Easter (Dominica in Albis; Low Sunday)": { "class": "Sd1", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "Day II within the Octave of St. George": { "class": "DiOC", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "St. George, Martyr" }, 
-  "St. Mark, Evangelist<br>The Greater Litanies": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 16 }, 
+  "St. Mark, Evangelist": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 16 }, 
   "Day III within the Octave of St. George": { "class": "DiOC", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "St. George, Martyr" }, 
   "Day IV within the Octave of St. George": { "class": "DiOC", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "St. George, Martyr" }, 
   "St. Cletus & Marcellinus, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -801,6 +808,7 @@ var meta = {
   "St. Athanasius, Bishop, Confessor & Doctor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Finding of the Holy Cross": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "y", "rank": 24 }, 
   "Solemnity of St. Joseph, Spouse of the B.V.M.": { "class": "D1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 20 }, 
+  "Octave of the Solmenity of St Joseph": { "class": "ODS", "office": "S", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "Solemnity of St. Joseph, Spouse of the B.V.M." }, 
   "Ss. Alexander (Bishop), Eventius, Theodulus (Martyrs) & Juvenalis (Bishop & Confessor)": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Monica, Widow": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. John before the Latin Gate": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "y", "rank": 19 }, 
@@ -819,7 +827,7 @@ var meta = {
   "V Sunday after Easter": { "class": "Sd3", "office": "Sd", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "St. Constantine, Emperor & Confessor": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Rogation Monday": { "class": "F2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "Rogation Tuesday": { "class": "Comm", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "Rogation Tuesday": { "class": " ", "office": "Comm", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "The Vigil of the Ascension": { "class": "V", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Vincent of Lerins, Confessor": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "The Ascension of Our Lord": { "class": "D1", "octave": "3", "obligation": "y", "devotion": "n", "secondary": "n", "rank": 5 }, 
@@ -939,7 +947,7 @@ var meta = {
   "Dedication of Our Lady of the Snows": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Oswald, King & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "The Transfiguration of Our Lord Jesus Christ": { "class": "D2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n", "rank": 2 }, 
-  "Ss. Sixtus II (Bishop & Martyr), Felicissimus & Agapitus (Deacons), Martyrs": { "class": "Comm", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "Ss. Sixtus II (Bishop & Martyr), Felicissimus & Agapitus (Deacons), Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Donatus, Bishop & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "[The Most Holy Name of Jesus]": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "y" }, 
   "Ss. Cyriacus, Largus & Smaragdus, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -1080,7 +1088,7 @@ var meta = {
   "Commemoration of Advent Feria": { "class": "F3", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Ambrose of Milan, Bishop, Confessor & Doctor": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 7 }, 
   "Vigil of the Conception B.V.M.": { "class": "V", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "The Conception of the B.V.M.": { "class": "D1", "octave": "C", "obligation": "n", "devotion": "y", "secondary": "n", "rank": 14 }, 
+  "The Conception of the B.V.M.": { "class": "D2", "octave": "C", "obligation": "n", "devotion": "y", "secondary": "n" }, 
   "Day II within Conception Octave": { "class": "DiOC", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "The Conception of the B.V.M." }, 
   "II Sunday in Advent": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "Day III within Conception Octave": { "class": "DiOC", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "The Conception of the B.V.M." }, 
@@ -1124,7 +1132,23 @@ var meta = {
 </script>
   <script>
 "use strict"
-// TODO: Requiem Masses (see Ordo)
+
+function romanNumeral(n) {
+  var r = { "M": 1000, "CM": 900, "D": 500, "CD": 400, "C": 100, "XC": 90,
+            "L": 50, "XL": 40, "X": 10, "IX": 9, "V": 5, "IV": 4, "I": 1 };
+  var rn = "";
+  for (var i in r) {
+    while (n >= r[i]) {
+      rn += i;
+      n -= r[i];
+    }
+  }
+  return rn;
+}
+
+function leapYear(year) {
+  return (year & 3) == 0 && ((year % 25) != 0 || (year & 15) == 0);
+}
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -1156,20 +1180,8 @@ function diffWeeks(date2, date1) {
   return(Math.floor(diffDays(date2, date1) / 7));
 }
 
-// returns the roman numeral for n
-function roman_numeral(n) {
-  var r = { "M": 1000, "CM": 900, "D": 500, "CD": 400, "C": 100, "XC": 90,
-            "L": 50, "XL": 40, "X": 10, "IX": 9, "V": 5, "IV": 4, "I": 1 };
-  var rn = "";
-  for (var i in r) {
-    while (n >= r[i]) {
-      rn += i;
-      n -= r[i];
-    }
-  }
-  return rn;
-}
-
+</script>
+<script>
 class Kalendar {
   // y is the "base year" - others added as needed
   constructor(y) {
@@ -1251,8 +1263,8 @@ class Kalendar {
     // First Wednesday after Holy Cross
     var hc = new Date(y, 8, 14);
     var hcdow = hc.getDay();
-    if(hcdow < 4) {
-      return(addDays(hc, 4 - hcdow)); 
+    if(hcdow < 3) {
+      return(addDays(hc, 3 - hcdow)); 
     } else {
       return(addDays(hc, 7 - Math.abs(3 - hcdow)));
     }
@@ -1325,15 +1337,30 @@ class KalendarYear {
       var d = Kalendar.getMoveable(year, m);
       this.addDate2(d, m);
     }
+    var ly = leapYear(year);
     for (var f in fixed) {
-      this.addDate(fixed[f]["m"], fixed[f]["d"], f.trim());
+      this.addDate(fixed[f]["m"], fixed[f]["d"] + (fixed[f]["addleap"] == "yes" && ly ? 1 : 0), f.trim());
     }
+    this.addHolyName(year);
     this.addSundaysAfterEpiphany();
     this.addSundaysAfterTrinity();
     this.addFerias();
+    this.addGreaterLitanies();
     this.determineAnticipation();
     this.addSatOfficeOfBVM();
     this.determinePrecedence();
+  }
+
+  addHolyName(y) {
+    var holyname;
+    var nyd = new Date(y, 0, 1);
+    var first_sun = Kalendar.findNextSunday(subDay(nyd));
+    if ([1, 6, 7].includes(first_sun.getDate())) {
+      holyname = new Date(y, 0, 2)
+    } else {
+      holyname = first_sun
+    }
+    this.addDate2(holyname, "Most Holy Name of Jesus");
   }
 
   addDate(m, d, name) {
@@ -1386,10 +1413,25 @@ class KalendarYear {
     var odate = Kalendar.findNextSunday(date);
     if(odate.getFullYear() == this.year) { // necessary because for Nativity Octave may be outside this year
       var odateobj = this.getDate(odate);
-      var i = odateobj.removeMatch(/within[\d\D]+octave/i);
-      if(i != -1) { // not found - i.e., the Octave Day itself
-        var d = this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+      var oday = odate.getDate()
+      var d
+      if(octavename == "the Nativity") {
+        // special handling 
+        if (oday != 29 && oday != 30 && oday != 31 && oday != 1) {
+          var d29 = new Date(this.year, 11, 29); 
+          d = this.addDate2(d29, "Office of Sunday within the Octave of the Nativity");   
+          //this.getDate(d29).removeMatch(/within[\d\D]+octave/i);
+        } else {
+          d = this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+          odateobj.removeMatch(/within[\d\D]+octave/i);
+        }
         d.klass = "Sd2";
+      } else {
+        var i = odateobj.removeMatch(/within[\d\D]+octave/i);
+        if(i != -1) { // not found - i.e., the Octave Day itself
+          d = this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+          d.klass = "Sd2";
+        }
       }
     }
   }
@@ -1433,7 +1475,7 @@ class KalendarYear {
     } else {
       this.addHolyFamily(ei, false);
       n = 0;
-      this.addSunday(ei, roman_numeral(++n) + suffix, "Sd2");
+      this.addSunday(ei, romanNumeral(++n) + suffix, "Sd2");
     }
 
     var w = Kalendar.sundaysInEpiphany(this.year);  
@@ -1445,10 +1487,10 @@ class KalendarYear {
     while(addWeek(ei) < s) {
       ei = addWeek(ei);
       if(n < 6) {
-        this.addSunday(ei, roman_numeral(++n) + suffix);
+        this.addSunday(ei, romanNumeral(++n) + suffix);
       } else {
-        this.addSunday(ei, roman_numeral(p++) + " Sunday after Pentecost [" + 
-                  roman_numeral(p - 2) + " Trinity] (Anticipated) [" + roman_numeral(++n) + " Epiphany]");
+        this.addSunday(ei, romanNumeral(p++) + " Sunday after Pentecost [" + 
+                  romanNumeral(p - 2) + " Trinity] (Anticipated) [" + romanNumeral(++n) + " Epiphany]");
       }
     }
   } 
@@ -1463,8 +1505,8 @@ class KalendarYear {
     var esun = 6 - (w - 25); // which one to start with
     var n = 0;
     var stdadd = function(o, t, n) {  // the usual name to add
-      o.addSunday(t, roman_numeral(n + 1) + " Sunday after Pentecost [" + 
-                  roman_numeral(n) + " Trinity]");
+      o.addSunday(t, romanNumeral(n + 1) + " Sunday after Pentecost [" + 
+                  romanNumeral(n) + " Trinity]");
     };
     var mthadd = function(o, t) {  // add I, II, III... in August, in September, etc.
       if(t.getMonth() == 6 && t.getDate() >= 29 || // on or after July 29th (see p. 424 Monastic Diurnal)
@@ -1481,8 +1523,14 @@ class KalendarYear {
         } else if (first_of_current.getDay() != 0 && 
                    first_of_current.getDay() <= 3) {
           sun_in_month += 1; // will have anticipated first Sunday in previous month
+        } 
+        if(t.getMonth() == 10 && 
+           t.getDate() > 5 &&
+           (![5, 12, 19, 26].includes(t.getDate()))) {
+          sun_in_month += 1
         }
-        var d = o.addDate2(t, "(" + roman_numeral(sun_in_month) + " of " + months[m] + ")");
+
+        var d = o.addDate2(t, "(" + romanNumeral(sun_in_month) + " of " + months[m] + ")");
         d.klass = " ";
       }
     };
@@ -1493,8 +1541,8 @@ class KalendarYear {
       if(n < 23) {
         stdadd(this, t, n);
       } else if(nepi > 0) {
-        this.addSunday(t, roman_numeral(esun) + " Sunday after Epiphany (Resumed) [" +
-                       roman_numeral(n) + " Trinity]");
+        this.addSunday(t, romanNumeral(esun) + " Sunday after Epiphany (Resumed) [" +
+                       romanNumeral(n) + " Trinity]");
         --nepi;
         ++esun;
       } 
@@ -1515,9 +1563,9 @@ class KalendarYear {
     if(osun == 29) {
       // yes, are they from Epiphany or Pentecost?
       if(wepi < 6) {
-        this.addSunday(subDay(Kalendar.getSeptuagesima(this.year)), "Office of the " + roman_numeral(wepi + 1) + " Sunday After Epiphany");
+        this.addSunday(subDay(Kalendar.getSeptuagesima(this.year)), "Office of the " + romanNumeral(wepi + 1) + " Sunday After Epiphany");
       } else {
-        this.addSunday(subDay(sunnxt), "Office of the " + roman_numeral(w) + " Sunday After Pentecost [" + roman_numeral(w - 1) + " Trinity]");
+        this.addSunday(subDay(sunnxt), "Office of the " + romanNumeral(w) + " Sunday After Pentecost [" + romanNumeral(w - 1) + " Trinity]");
       }
     }
 
@@ -1577,7 +1625,7 @@ class KalendarYear {
     while(d < nye) {
       var d1 = addDay(d);
       // check Sundays that are not impeded by Saturday Doubles or Octave Days
-      if(this.isSunday(d1) && !this.isDouble(d) && !this.isOctaveDay(d)) {
+      if(this.isSunday(d1)) {
         var d1obj = this.getDate(d1)
         var celes = d1obj.getCelebrations();
         var celesClasses = celes.map(c => c.klass);
@@ -1585,7 +1633,10 @@ class KalendarYear {
         if(vigilIndex != -1) {
           var vigil = celes[vigilIndex];
           d1obj.removeMatch(vigil.name);
-          this.addDate2(d, vigil.name);
+          var v = this.addDate2(d, vigil.name);
+          if (this.isDouble(d) || this.isOctaveDay(d)) {
+            d.klass = "Comm"
+          }
         }
       }
       d = d1;
@@ -1621,7 +1672,7 @@ class KalendarYear {
     var d = start;
     while(d < end) {
       if(!this.isSunday(d)) {
-        var a = this.addDate2(d, "Commemoration of Septuagesimatide Feria");
+        var a = this.addDate2(d, "Septuagesimatide Feria");
         a.klass = "F3";
       }
       d = addDay(d);
@@ -1631,11 +1682,22 @@ class KalendarYear {
     var d = start;
     while(d < end) {
       if(!this.isSunday(d) && !this.getDate(d).search(/Ember/)) {
-        var a = this.addDate2(d, "Commemoration of Advent Feria");
+        var a = this.addDate2(d, "Advent Feria");
         a.klass = "F3"; 
       }
       d = addDay(d);
     }
+  }
+  
+  addGreaterLitanies() {
+    var e = Kalendar.getEaster(this.year)
+    // if Easter falls on April 25 transfer 
+    // to the next Tuesday
+    var d = new Date(this.year, 3, 25);
+    if (e.getMonth() == 2 && e.getDate() == 25) {
+      addDays(d, 2);
+    } 
+    this.addDate2(d, "The Greater Litanies");
   }
 
   removeTranslatedOctaves(o) {
@@ -1659,7 +1721,7 @@ class KalendarYear {
       if(free) {
         this.toTranslate.shift();
         var c = o.push(next2trans.name);
-        c.tranferred = true;
+        c.transferred = true;
       }
     }
   }
@@ -1695,12 +1757,12 @@ class KalendarDate {
 
   // TODO: rank octaves with each other
   ranksorter(c1, c2) {
-    var rank = [ "Sd1", "F1", "V1", "DiO1", "OD2", "D1", "Sd2", "D2", "F2", "DiO2", 
+    var rank = [ "Sd1", "F1", "V1", "DiO1", "OD2", "D1", "Sd2", "DiO2", "D2", "F2",  
                  "Sd3", "OD3", "ODC",  
                  "V2", "Gd", "iv", "D", "Sd",
                  "F2b", // added for Friday after Octave of Ascension
-                 "DiO3", "DiOC", "V", "F3", "ODS", "BVM",
-                 "Comm", "M", " " ]; // cannot use blank space because has falsity
+                 "DiO3", "DiOC", "Comm", "F3", "V", "ODS", "BVM",
+                  "M", " " ]; // cannot use blank string because has falsity
     var s1 = c1.klass;
     var s2 = c2.klass;
     var class1 = rank.indexOf(s1);
@@ -1715,12 +1777,15 @@ class KalendarDate {
     }
     return(class1 - class2);
   }
+
   search(pattern) {
     return(this.celes.some(c => c.search(pattern) !== -1));
   }
+
   match(pattern) {
     return(this.celes.some(c => c.match(pattern)));
   }
+
   removeMatch(pattern) {
     var i = this.celes.findIndex( c => c.name.search(pattern) !== -1 );
     if(i != -1) { // not found
@@ -1728,20 +1793,34 @@ class KalendarDate {
     }
     return(i);
   }
+
   valueEqual(valname, value) {
     return(this.celes.some(c => c.getValue(valname) == value));
   }
+
   push(name) {
     var o = new KalendarCelebration(name);
     this.celes.push(o);
     return(o);
   }
+
   getCelebrations() {
-    return(this.celes.sort(this.ranksorter));
+    var o = this.celes.sort(this.ranksorter);
+    var celesClasses = o.map(c => c.klass);
+    var commIndex = celesClasses.indexOf("Comm");
+    if(commIndex != -1) {
+      // splice the comm out and put it at the second
+      // (index = 1) position
+      var comm = o.splice(commIndex, 1);
+      o.splice(1, 0, comm[0]); 
+    }
+    return(o);
   }
+
   names() {
     return(this.celes.map(c => c.name));
   }
+
   makeClassTable() {
     // returns class name to count mapping falling on this day
     return(
@@ -1761,6 +1840,7 @@ class KalendarDate {
         )
     );
   }
+
   filterMaker(classes) {
       function filter(o) {
         var cstr = o.klass;
@@ -1768,6 +1848,7 @@ class KalendarDate {
       }
       return(filter);
   }
+
   lessWorthy(rank) {
     var rankedCeles = this.getCelebrations();
     var s = rankedCeles.filter(this.filterMaker([rank])).
@@ -1779,6 +1860,7 @@ class KalendarDate {
     s.shift();
     return(s);
   }
+
   lessWorthies(classname) {
     var ct = this.makeClassTable();
     if(ct[classname] > 1) {
@@ -1787,71 +1869,93 @@ class KalendarDate {
       return([]);
     }
   }
+
+  addCommOf(o) {
+    o.name = "Commemoration of " + o.name; 
+  }
+  
+  processDemotion(o) {
+    if(o.klass == "F3") {
+      this.addCommOf(o)
+    } 
+  }
+
+  processNothing(o) {
+    o.nothing = true
+    o.klass = " "
+  }
+
   demoteAndNothing(demoteIt, nothingIt) {
     var rankedCeles = this.getCelebrations();
     if(demoteIt.length > 0) {
       rankedCeles.
         filter(this.filterMaker(demoteIt)).
-        forEach(o => o.klass = "Comm"); 
+        forEach(o => this.processDemotion(o)); 
     }
     if(nothingIt.length > 0) {
       rankedCeles.
         filter(this.filterMaker(nothingIt)).
-        forEach(o => o.nothing = true);
+        forEach(o => this.processNothing(o));
     }
   }
+
   demoteToCommOrNothing() { 
     var topRank = this.getCelebrations()[0].klass;
     switch(topRank) {
       case "D1":
         this.demoteAndNothing(["Sd2", "Sd3", "V2", "ODC", "OD3", "Gd", 
-                          "F2", "D", "DiO2", "DiO3", "F2b", "F3"],
+                          "D", "DiO2", "DiO3", "F2b", "F3"],
                          ["DiOC", "ODS", "V", "M"]);
         break;
       case "D2":
         this.demoteAndNothing(["Sd3", "V2", "ODC", "OD3", "Gd", 
-                          "F2", "D", "DiO3", "F2b", "F3", "ODS"],
+                          "D", "DiO3", "F2b", "F3", "ODS"],
                          ["DiOC"]);
         break;
       case "Sd1":  case "Sd2": case "Sd3":
       case "V1":   case "V2":
       case "F1":   case "F2":
       case "DiO1": case "OD2":  
-        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "M"], ["V"]);
+        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "M", "F3"], ["V"]);
         break;
       case "ODC":
       case "OD3": 
         this.demoteAndNothing(["Gd"], []);
-        this.lessWorthies("ODC").forEach(o => o.klass = "Comm");
-        this.lessWorthies("OD3").forEach(o => o.klass = "Comm");
+        this.lessWorthies("ODC").forEach(o => this.processDemotion(o));
+        this.lessWorthies("OD3").forEach(o => this.processDemotion(o));
         //fall through
       case "Gd":
-        this.lessWorthies("Gd").forEach(o => o.klass = "Comm");
+        this.lessWorthies("Gd").forEach(o => this.processDemotion(o));
         //fall through
       case "D":
         this.demoteAndNothing(["DiOC", "V", "ODS", "F3", "M"], []);
-        this.lessWorthies("D").forEach(o => o.klass = "Comm");
+        this.lessWorthies("D").forEach(o => this.processDemotion(o));
         break;
       case "DiO2":
-        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "V", "M"], []);
+        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "V", "M", "F3"], []);
         break;
-      case "DiO3": case "F2b":
-        this.demoteAndNothing(["DiOC", "ODS", "M"], []);
+      case "DiO3": case "F2b": 
+        this.demoteAndNothing(["DiOC", "ODS", "M", "F3"], []);
+        break;
+      case "DiOC":
+        this.demoteAndNothing(["F3"], []);
         break;
       case "V":
         this.demoteAndNothing(["ODS"], ["F3"]);
+        break;
       case "F3": 
-        this.demoteAndNothing(["ODS", "M"], []);
+        this.demoteAndNothing(["ODS", "M"], ["V"]);
         break;
       case "ODS":
         this.demoteAndNothing(["M"], []);
-        this.lessWorthies("ODS").forEach(o => o.klass = "Comm");
+        this.lessWorthies("ODS").forEach(o => this.processDemotion(o));
         break;
       case "BVM":
         this.demoteAndNothing(["M"], []);
         break;
     }
   }
+
   needsTranslation() {
     var rankedCeles = this.getCelebrations();
     var topRank = rankedCeles[0].klass;
@@ -1883,7 +1987,7 @@ class KalendarCelebration {
   constructor(name) {
     this._name = name;
     this.metasetter("class", " ", "klass");
-    this.metasetter("office", " ");
+    this.metasetter("office", this._klass);
     this.metasetter("octave", "N");
     this.metasetter("feast", " ");
     this.metasetter("obligation", false);
@@ -1911,7 +2015,7 @@ class KalendarCelebration {
   
   get klass() { return this._klass; }
   set klass(o) { this._klass = o; }
-  
+
   get office() {
     if(this._office == " ") {
       return(this._klass);
@@ -1919,6 +2023,7 @@ class KalendarCelebration {
       return(this._office);
     }
   }
+
   set office(o) {
     this._office = o;
   }
@@ -1951,28 +2056,28 @@ class KalendarCelebration {
 }
 </script>
   <script>
-function updateKalendar(d) {
+function updateKalendar(d, k) {
   var i = 1;
   var head = true;
   var timewidget = '<tr><td colspan="6" align="center"><div class="timenav"> \
       <div> \
-      <button title="Back one year" onclick="d = new Date(d.getFullYear() - 1, d.getMonth(), d.getDate()); updateKalendar(d);">&lt;&lt;&lt;</button> \
-      <button title="Back 28 days" onclick="d = addDays(d, -28); updateKalendar(d);">&lt;&lt;</button> \
-      <button title="Back 1 day" onclick="d = addDays(d, -1); updateKalendar(d);">&lt;</button> \
-      <button onclick="d = new Date(); updateKalendar(d);">Today</button> \
-      <button title="Forward 1 day" onclick="d = addDays(d, 1); updateKalendar(d);">&gt;</button> \
-      <button title="Forward 28 days" onclick="d = addDays(d, 28); updateKalendar(d);">&gt;&gt;</button> \
-      <button title="Forward 1 year" onclick="d = new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()); updateKalendar(d);">&gt;&gt;&gt;</button> \
+      <button title="Back one year" onclick="d = new Date(d.getFullYear() - 1, d.getMonth(), d.getDate()); updateKalendar(d, k);">&lt;&lt;&lt;</button> \
+      <button title="Back 28 days" onclick="d = addDays(d, -28); updateKalendar(d, k);">&lt;&lt;</button> \
+      <button title="Back 1 day" onclick="d = addDays(d, -1); updateKalendar(d, k);">&lt;</button> \
+      <button onclick="d = new Date(); updateKalendar(d, k);">Today</button> \
+      <button title="Forward 1 day" onclick="d = addDays(d, 1); updateKalendar(d, k);">&gt;</button> \
+      <button title="Forward 28 days" onclick="d = addDays(d, 28); updateKalendar(d, k);">&gt;&gt;</button> \
+      <button title="Forward 1 year" onclick="d = new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()); updateKalendar(d, k);">&gt;&gt;&gt;</button> \
       </div> \
     </div></td></tr>';
   var makeClassSpan = function(fldstr) {
-    rn = ranknames[fldstr];
+    var rn = ranknames[fldstr];
     return("<span" + (rn == undefined ? ">" : (" title='" + rn + "'>")) +
            fldstr + "</span>");
   }
   var makeCelebrationTable = function(d) {
-    cc = k.getDate(d).getCelebrations();
-    m = cc.map(
+    var cc = k.getDate(d).getCelebrations();
+    var m = cc.map(
       function(c, i) { 
         return(
           "<tr" +
@@ -2029,6 +2134,6 @@ function updateKalendar(d) {
   <script>
     var d = new Date();
     var k = new Kalendar(d.getFullYear()); 
-    updateKalendar(d); 
+    updateKalendar(d, k); 
   </script>
 </html>

@@ -11,11 +11,18 @@
   <script type="module" src="kalendar.js"></script>
   <script type="module" src="kalendar_view.js"></script>
   <script src="js/jquery-2.2.4.min.js"></script>
+  <script>
+    var d = new Date();    
+  </script>
   <script type="module">
     import Kalendar from './kalendar.js';
     import updateKalendar from './kalendar_view.js';
-    var d = new Date();
-    var k = new Kalendar(d.getFullYear()); 
-    updateKalendar(d, k); 
+    import {addDays} from './date_calcs.jsm';
+    window.addDays = addDays;
+    window.Kalendar = Kalendar;
+    window.updateKalendar = updateKalendar;
+    var k = new window.Kalendar(d.getFullYear()); 
+    window.k = k;
+    window.updateKalendar(d, window.k); 
   </script>
 </html>

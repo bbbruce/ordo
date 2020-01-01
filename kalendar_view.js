@@ -6,13 +6,13 @@ export default function updateKalendar(d, k) {
   var head = true;
   var timewidget = '<tr><td colspan="6" align="center"><div class="timenav"> \
       <div> \
-      <button title="Back one year" onclick="d = new Date(d.getFullYear() - 1, d.getMonth(), d.getDate()); updateKalendar(d);">&lt;&lt;&lt;</button> \
-      <button title="Back 28 days" onclick="d = addDays(d, -28); updateKalendar(d);">&lt;&lt;</button> \
-      <button title="Back 1 day" onclick="d = addDays(d, -1); updateKalendar(d);">&lt;</button> \
-      <button onclick="d = new Date(); updateKalendar(d);">Today</button> \
-      <button title="Forward 1 day" onclick="d = addDays(d, 1); updateKalendar(d);">&gt;</button> \
-      <button title="Forward 28 days" onclick="d = addDays(d, 28); updateKalendar(d);">&gt;&gt;</button> \
-      <button title="Forward 1 year" onclick="d = new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()); updateKalendar(d);">&gt;&gt;&gt;</button> \
+      <button title="Back one year" onclick="d = new Date(d.getFullYear() - 1, d.getMonth(), d.getDate()); updateKalendar(d, k);">&lt;&lt;&lt;</button> \
+      <button title="Back 28 days" onclick="d = addDays(d, -28); updateKalendar(d, k);">&lt;&lt;</button> \
+      <button title="Back 1 day" onclick="d = addDays(d, -1); updateKalendar(d, k);">&lt;</button> \
+      <button onclick="d = new Date(); updateKalendar(d, k);">Today</button> \
+      <button title="Forward 1 day" onclick="d = addDays(d, 1); updateKalendar(d, k);">&gt;</button> \
+      <button title="Forward 28 days" onclick="d = addDays(d, 28); updateKalendar(d, k);">&gt;&gt;</button> \
+      <button title="Forward 1 year" onclick="d = new Date(d.getFullYear() + 1, d.getMonth(), d.getDate()); updateKalendar(d, k);">&gt;&gt;&gt;</button> \
       </div> \
     </div></td></tr>';
   var makeClassSpan = function(fldstr) {

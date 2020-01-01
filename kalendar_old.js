@@ -1,7 +1,7 @@
 "use strict"
 // TODO: Requiem Masses (see Ordo)
 import {romanNumeral} from './roman_numeral.jsm';
-import {addDays, diffDays, diffWeeks, addWeek, subWeek, addDay, subDay} from './date_calcs.jsm';
+import {addDays, diffDays, diffWeeks, addWeek, subWeek, addDay, subDay, leapYear} from './date_calcs.jsm';
 
 export default class Kalendar_old {
   // y is the "base year" - others added as needed
@@ -84,8 +84,8 @@ export default class Kalendar_old {
     // First Wednesday after Holy Cross
     var hc = new Date(y, 8, 14);
     var hcdow = hc.getDay();
-    if(hcdow < 4) {
-      return(addDays(hc, 4 - hcdow)); 
+    if(hcdow < 3) {
+      return(addDays(hc, 3 - hcdow)); 
     } else {
       return(addDays(hc, 7 - Math.abs(3 - hcdow)));
     }
@@ -158,15 +158,30 @@ class Kalendar_oldYear {
       var d = Kalendar_old.getMoveable(year, m);
       this.addDate2(d, m);
     }
+    var ly = leapYear(year);
     for (var f in fixed) {
-      this.addDate(fixed[f]["m"], fixed[f]["d"], f.trim());
+      this.addDate(fixed[f]["m"], fixed[f]["d"] + (fixed[f]["addleap"] == "yes" && ly ? 1 : 0), f.trim());
     }
+    this.addHolyName(year);
     this.addSundaysAfterEpiphany();
     this.addSundaysAfterTrinity();
     this.addFerias();
+    this.addGreaterLitanies();
     this.determineAnticipation();
     this.addSatOfficeOfBVM();
     this.determinePrecedence();
+  }
+
+  addHolyName(y) {
+    var holyname;
+    var nyd = new Date(y, 0, 1);
+    var first_sun = Kalendar_old.findNextSunday(subDay(nyd));
+    if ([1, 6, 7].includes(first_sun.getDate())) {
+      holyname = new Date(y, 0, 2)
+    } else {
+      holyname = first_sun
+    }
+    this.addDate2(holyname, "Most Holy Name of Jesus");
   }
 
   addDate(m, d, name) {
@@ -219,10 +234,25 @@ class Kalendar_oldYear {
     var odate = Kalendar_old.findNextSunday(date);
     if(odate.getFullYear() == this.year) { // necessary because for Nativity Octave may be outside this year
       var odateobj = this.getDate(odate);
-      var i = odateobj.removeMatch(/within[\d\D]+octave/i);
-      if(i != -1) { // not found - i.e., the Octave Day itself
-        var d = this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+      var oday = odate.getDate()
+      var d
+      if(octavename == "the Nativity") {
+        // special handling 
+        if (oday != 29 && oday != 30 && oday != 31 && oday != 1) {
+          var d29 = new Date(this.year, 11, 29); 
+          d = this.addDate2(d29, "Office of Sunday within the Octave of the Nativity");   
+          //this.getDate(d29).removeMatch(/within[\d\D]+octave/i);
+        } else {
+          d = this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+          odateobj.removeMatch(/within[\d\D]+octave/i);
+        }
         d.klass = "Sd2";
+      } else {
+        var i = odateobj.removeMatch(/within[\d\D]+octave/i);
+        if(i != -1) { // not found - i.e., the Octave Day itself
+          d = this.addDate2(odate, "The Sunday within the Octave of " + octavename);
+          d.klass = "Sd2";
+        }
       }
     }
   }
@@ -416,7 +446,7 @@ class Kalendar_oldYear {
     while(d < nye) {
       var d1 = addDay(d);
       // check Sundays that are not impeded by Saturday Doubles or Octave Days
-      if(this.isSunday(d1) && !this.isDouble(d) && !this.isOctaveDay(d)) {
+      if(this.isSunday(d1)) {
         var d1obj = this.getDate(d1)
         var celes = d1obj.getCelebrations();
         var celesClasses = celes.map(c => c.klass);
@@ -424,7 +454,10 @@ class Kalendar_oldYear {
         if(vigilIndex != -1) {
           var vigil = celes[vigilIndex];
           d1obj.removeMatch(vigil.name);
-          this.addDate2(d, vigil.name);
+          var v = this.addDate2(d, vigil.name);
+          if (this.isDouble(d) || this.isOctaveDay(d)) {
+            d.klass = "Comm"
+          }
         }
       }
       d = d1;
@@ -460,7 +493,7 @@ class Kalendar_oldYear {
     var d = start;
     while(d < end) {
       if(!this.isSunday(d)) {
-        var a = this.addDate2(d, "Commemoration of Septuagesimatide Feria");
+        var a = this.addDate2(d, "Septuagesimatide Feria");
         a.klass = "F3";
       }
       d = addDay(d);
@@ -470,11 +503,22 @@ class Kalendar_oldYear {
     var d = start;
     while(d < end) {
       if(!this.isSunday(d) && !this.getDate(d).search(/Ember/)) {
-        var a = this.addDate2(d, "Commemoration of Advent Feria");
+        var a = this.addDate2(d, "Advent Feria");
         a.klass = "F3"; 
       }
       d = addDay(d);
     }
+  }
+  
+  addGreaterLitanies() {
+    var e = Kalendar_old.getEaster(this.year)
+    // if Easter falls on April 25 transfer 
+    // to the next Tuesday
+    var d = new Date(this.year, 3, 25);
+    if (e.getMonth() == 2 && e.getDate() == 25) {
+      addDays(d, 2);
+    } 
+    this.addDate2(d, "The Greater Litanies");
   }
 
   removeTranslatedOctaves(o) {
@@ -538,8 +582,8 @@ class Kalendar_oldDate {
                  "Sd3", "OD3", "ODC",  
                  "V2", "Gd", "iv", "D", "Sd",
                  "F2b", // added for Friday after Octave of Ascension
-                 "DiO3", "DiOC", "V", "F3", "ODS", "BVM",
-                 "Comm", "M", " " ]; // cannot use blank space because has falsity
+                 "DiO3", "DiOC", "Comm", "F3", "V", "ODS", "BVM",
+                  "M", " " ]; // cannot use blank string because has falsity
     var s1 = c1.klass;
     var s2 = c2.klass;
     var class1 = rank.indexOf(s1);
@@ -554,12 +598,15 @@ class Kalendar_oldDate {
     }
     return(class1 - class2);
   }
+
   search(pattern) {
     return(this.celes.some(c => c.search(pattern) !== -1));
   }
+
   match(pattern) {
     return(this.celes.some(c => c.match(pattern)));
   }
+
   removeMatch(pattern) {
     var i = this.celes.findIndex( c => c.name.search(pattern) !== -1 );
     if(i != -1) { // not found
@@ -567,20 +614,34 @@ class Kalendar_oldDate {
     }
     return(i);
   }
+
   valueEqual(valname, value) {
     return(this.celes.some(c => c.getValue(valname) == value));
   }
+
   push(name) {
     var o = new Kalendar_oldCelebration(name);
     this.celes.push(o);
     return(o);
   }
+
   getCelebrations() {
-    return(this.celes.sort(this.ranksorter));
+    var o = this.celes.sort(this.ranksorter);
+    var celesClasses = o.map(c => c.klass);
+    var commIndex = celesClasses.indexOf("Comm");
+    if(commIndex != -1) {
+      // splice the comm out and put it at the second
+      // (index = 1) position
+      var comm = o.splice(commIndex, 1);
+      o.splice(1, 0, comm[0]); 
+    }
+    return(o);
   }
+
   names() {
     return(this.celes.map(c => c.name));
   }
+
   makeClassTable() {
     // returns class name to count mapping falling on this day
     return(
@@ -600,6 +661,7 @@ class Kalendar_oldDate {
         )
     );
   }
+
   filterMaker(classes) {
       function filter(o) {
         var cstr = o.klass;
@@ -607,6 +669,7 @@ class Kalendar_oldDate {
       }
       return(filter);
   }
+
   lessWorthy(rank) {
     var rankedCeles = this.getCelebrations();
     var s = rankedCeles.filter(this.filterMaker([rank])).
@@ -618,6 +681,7 @@ class Kalendar_oldDate {
     s.shift();
     return(s);
   }
+
   lessWorthies(classname) {
     var ct = this.makeClassTable();
     if(ct[classname] > 1) {
@@ -626,71 +690,93 @@ class Kalendar_oldDate {
       return([]);
     }
   }
+
+  addCommOf(o) {
+    o.name = "Commemoration of " + o.name; 
+  }
+  
+  processDemotion(o) {
+    if(o.klass == "F3") {
+      this.addCommOf(o)
+    } 
+  }
+
+  processNothing(o) {
+    o.nothing = true
+    o.klass = " "
+  }
+
   demoteAndNothing(demoteIt, nothingIt) {
     var rankedCeles = this.getCelebrations();
     if(demoteIt.length > 0) {
       rankedCeles.
         filter(this.filterMaker(demoteIt)).
-        forEach(o => o.klass = "Comm"); 
+        forEach(o => this.processDemotion(o)); 
     }
     if(nothingIt.length > 0) {
       rankedCeles.
         filter(this.filterMaker(nothingIt)).
-        forEach(o => o.nothing = true);
+        forEach(o => this.processNothing(o));
     }
   }
+
   demoteToCommOrNothing() { 
     var topRank = this.getCelebrations()[0].klass;
     switch(topRank) {
       case "D1":
         this.demoteAndNothing(["Sd2", "Sd3", "V2", "ODC", "OD3", "Gd", 
-                          "F2", "D", "DiO2", "DiO3", "F2b", "F3"],
+                          "D", "DiO2", "DiO3", "F2b", "F3"],
                          ["DiOC", "ODS", "V", "M"]);
         break;
       case "D2":
         this.demoteAndNothing(["Sd3", "V2", "ODC", "OD3", "Gd", 
-                          "F2", "D", "DiO3", "F2b", "F3", "ODS"],
+                          "D", "DiO3", "F2b", "F3", "ODS"],
                          ["DiOC"]);
         break;
       case "Sd1":  case "Sd2": case "Sd3":
       case "V1":   case "V2":
       case "F1":   case "F2":
       case "DiO1": case "OD2":  
-        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "M"], ["V"]);
+        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "M", "F3"], ["V"]);
         break;
       case "ODC":
       case "OD3": 
         this.demoteAndNothing(["Gd"], []);
-        this.lessWorthies("ODC").forEach(o => o.klass = "Comm");
-        this.lessWorthies("OD3").forEach(o => o.klass = "Comm");
+        this.lessWorthies("ODC").forEach(o => this.processDemotion(o));
+        this.lessWorthies("OD3").forEach(o => this.processDemotion(o));
         //fall through
       case "Gd":
-        this.lessWorthies("Gd").forEach(o => o.klass = "Comm");
+        this.lessWorthies("Gd").forEach(o => this.processDemotion(o));
         //fall through
       case "D":
         this.demoteAndNothing(["DiOC", "V", "ODS", "F3", "M"], []);
-        this.lessWorthies("D").forEach(o => o.klass = "Comm");
+        this.lessWorthies("D").forEach(o => this.processDemotion(o));
         break;
       case "DiO2":
-        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "V", "M"], []);
+        this.demoteAndNothing(["ODC", "Gd", "D", "DiOC", "ODS", "V", "M", "F3"], []);
         break;
-      case "DiO3": case "F2b":
-        this.demoteAndNothing(["DiOC", "ODS", "M"], []);
+      case "DiO3": case "F2b": 
+        this.demoteAndNothing(["DiOC", "ODS", "M", "F3"], []);
+        break;
+      case "DiOC":
+        this.demoteAndNothing(["F3"], []);
         break;
       case "V":
         this.demoteAndNothing(["ODS"], ["F3"]);
+        break;
       case "F3": 
-        this.demoteAndNothing(["ODS", "M"], []);
+        this.demoteAndNothing(["ODS", "M"], ["V"]);
         break;
       case "ODS":
         this.demoteAndNothing(["M"], []);
-        this.lessWorthies("ODS").forEach(o => o.klass = "Comm");
+        this.lessWorthies("ODS").forEach(o => this.processDemotion(o));
         break;
       case "BVM":
         this.demoteAndNothing(["M"], []);
         break;
     }
   }
+
   needsTranslation() {
     var rankedCeles = this.getCelebrations();
     var topRank = rankedCeles[0].klass;
@@ -722,7 +808,7 @@ class Kalendar_oldCelebration {
   constructor(name) {
     this._name = name;
     this.metasetter("class", " ", "klass");
-    this.metasetter("office", " ");
+    this.metasetter("office", this._klass);
     this.metasetter("octave", "N");
     this.metasetter("feast", " ");
     this.metasetter("obligation", false);
@@ -750,7 +836,7 @@ class Kalendar_oldCelebration {
   
   get klass() { return this._klass; }
   set klass(o) { this._klass = o; }
-  
+
   get office() {
     if(this._office == " ") {
       return(this._klass);
@@ -758,6 +844,7 @@ class Kalendar_oldCelebration {
       return(this._office);
     }
   }
+
   set office(o) {
     this._office = o;
   }

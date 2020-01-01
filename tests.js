@@ -15,7 +15,7 @@ QUnit.test("Match new vs. old", function( assert ) {
       d = addDay(d);
     }
   }
-  [2017, 2018].map(testYear);
+  [2017, 2018, 2019, 2020].map(testYear);
 });
 QUnit.test("Advent", function( assert ) {
   function testAdvent(y, m, d) {
