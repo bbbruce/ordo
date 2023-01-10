@@ -1,7 +1,7 @@
 "use strict"
 // TODO: Requiem Masses (see Ordo)
-import {romanNumeral} from './roman_numeral.jsm';
-import {addDays, diffDays, diffWeeks, addWeek, subWeek, addDay, subDay, leapYear} from './date_calcs.jsm';
+import {romanNumeral} from './roman_numeral.js';
+import {addDays, diffDays, diffWeeks, addWeek, subWeek, addDay, subDay, leapYear} from './date_calcs.js';
 
 export default class Kalendar {
   // y is the "base year" - others added as needed
@@ -42,7 +42,7 @@ export default class Kalendar {
   }
 
   static getSeptuagesima(y) {
-    return(Kalendar.getMoveable(y, "The Sunday of Septuagesima"));
+    return(Kalendar.getMoveable(y, "Septuagesima Sunday"));
   }
 
   static getAshWednesday(y) {
@@ -162,7 +162,7 @@ class KalendarYear {
     for (var f in fixed) {
       this.addDate(fixed[f]["m"], fixed[f]["d"] + (fixed[f]["addleap"] == "yes" && ly ? 1 : 0), f.trim());
     }
-    this.addHolyName(year);
+    this.addHolyNames(year);
     this.addSundaysAfterEpiphany();
     this.addSundaysAfterTrinity();
     this.addFerias();
@@ -174,7 +174,7 @@ class KalendarYear {
     this.removeOctaves();
   }
 
-  addHolyName(y) {
+  addHolyNames(y) {
     var holyname;
     var nyd = new Date(y, 0, 1);
     var first_sun = Kalendar.findNextSunday(subDay(nyd));
@@ -184,6 +184,15 @@ class KalendarYear {
       holyname = first_sun
     }
     this.addDate2(holyname, "Most Holy Name of Jesus");
+   
+    var nat = new Date(y, 8, 8);
+    first_sun = Kalendar.findNextSunday(subDay(nat));
+    if (diffDays(first_sun, nat) == 1) { // first_sun is day after then need to move a week
+      holyname = addDays(first_sun, 6)
+    } else {
+      holyname = addDays(first_sun, -1)
+    }
+    this.addDate2(holyname, "The Most Holy Name of Mary")
   }
 
   addDate(m, d, name) {
@@ -559,7 +568,7 @@ class KalendarYear {
     var e = Kalendar.getEaster(this.year);
     var ps = addDays(e, -7);
     var d = new Date(this.year, 3, 25);
-    if (d >= ps && d < addDays(e, 2)) {
+    if (d >= ps && d < addDays(e, 1)) {
       d = addDays(e, 2);
     } 
     this.addDate2(d, "The Greater Litanies");

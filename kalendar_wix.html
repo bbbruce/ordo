@@ -151,9 +151,9 @@ var ranknames = {
 }
 
 var moveable = {
-  "The Sunday of Septuagesima": { "basis": "easter", "diff": -63 },
-  "The Sunday of Sexagesima": { "basis": "easter", "diff": -56 },
-  "The Sunday of Quinquagesima": { "basis": "easter", "diff": -49 },
+  "Septuagesima Sunday": { "basis": "easter", "diff": -63 },
+  "Sexagesima Sunday": { "basis": "easter", "diff": -56 },
+  "Quinquagesima Sunday": { "basis": "easter", "diff": -49 },
   "Ash Wednesday": { "basis": "easter", "diff": -46 },
   "Thursday after Ash Wednesday": { "basis": "easter", "diff": -45 },
   "Friday after Ash Wednesday": { "basis": "easter", "diff": -44 },
@@ -301,6 +301,7 @@ var fixed = {
   "Commemoration of St. Peter": { "m":  1, "d": 25 }, 
   "St. Polycarp of Smyrna, Bishop & Martyr": { "m":  1, "d": 26 }, 
   "St. John Chrysostom, Bishop, Confessor & Doctor": { "m":  1, "d": 27 }, 
+  "St. Cyril of Alexandria, Bishop, Confessor, & Doctor": { "m":  1, "d": 28 }, 
   "The Second Feast of St. Agnes, Virgin Martyr": { "m":  1, "d": 28 }, 
   "St. Martina, Virgin & Martyr": { "m":  1, "d": 30 }, 
   "St. Ignatius of Antioch, Bishop & Martyr": { "m":  2, "d":  1 }, 
@@ -324,8 +325,8 @@ var fixed = {
   "Vigil of St. Matthias": { "m":  2, "d": 23, "addleap": "yes" }, 
   "St. Matthias, Apostle": { "m":  2, "d": 24, "addleap": "yes" }, 
   "St. Walburga of Heidenheim, Virgin": { "m":  2, "d": 25, "addleap": "yes" }, 
+  "St. Alexander of Alexandria, Bishop & Confessor": { "m":  2, "d": 26, "addleap": "yes" }, 
   "St. Raphael of Brooklyn, Bishop & Confessor": { "m":  2, "d": 27, "addleap": "yes" }, 
-  "St. Alexander of Alexandria, Bishop & Confessor": { "m":  2, "d": 27, "addleap": "yes" }, 
   "St. David of Wales, Bishop & Confessor": { "m":  3, "d":  1 }, 
   "St. Chad, Bishop & Confessor": { "m":  3, "d":  2 }, 
   "St. Lucius I, Bishop & Martyr": { "m":  3, "d":  4 }, 
@@ -384,7 +385,6 @@ var fixed = {
   "Ss. Gordian & Epimachus, Martyrs": { "m":  5, "d": 10 }, 
   "Ss. Nereus, Achilles, Domitilla & Pancras, Martyrs": { "m":  5, "d": 12 }, 
   "St. Boniface of Tarsus, Martyr": { "m":  5, "d": 14 }, 
-  "St. Ubald, Bishop & Confessor": { "m":  5, "d": 16 }, 
   "St. Venantius, Martyr": { "m":  5, "d": 18 }, 
   "St. Pudentiana, Virgin": { "m":  5, "d": 19 }, 
   "St. Romanus, Abbot": { "m":  5, "d":  22 }, 
@@ -444,7 +444,7 @@ var fixed = {
   "Ss. Cyril and Methodius, Bishops & Confessors": { "m":  7, "d":  7 }, 
   "The Seven Holy Brothers, with Ss. Rufina & Secunda, Martyrs": { "m":  7, "d": 10 }, 
   "St. Joseph of Damascus (Priest) & his companions, Martyrs": { "m":  7, "d": 10 }, 
-  "Solemnity of St. Benedict": { "m":  7, "d": 11 }, 
+  "[Solemnity of St. Benedict (Monastics & Oblates Only)]": { "m":  7, "d": 11 }, 
   "St. Pius I, Bishop & Martyr": { "m":  7, "d": 11 }, 
   "Ss. Nabor & Felix, Martyrs": { "m":  7, "d": 12 }, 
   "St. Anacletus, Bishop & Martyr": { "m":  7, "d": 13 }, 
@@ -521,7 +521,6 @@ var fixed = {
   "The Nativity of The B.V.M.": { "m":  9, "d":  8 }, 
   "St. Hadrian, Martyr": { "m":  9, "d":  8 }, 
   "St. Gorgonius, Martyr": { "m":  9, "d":  9 }, 
-  "The Most Holy Name of Mary": { "m":  9, "d": 11 }, 
   "Ss. Protus & Hyacinth, Martyrs": { "m":  9, "d": 11 }, 
   "Exaltation of the Holy Cross": { "m":  9, "d": 14 }, 
   "Seven Sorrows of the B.V.M.": { "m":  9, "d": 15 }, 
@@ -611,7 +610,6 @@ var fixed = {
   "St. Sabbas of Judæa, Abbot": { "m": 12, "d":  5 }, 
   "St. Nicholas, Bishop & Confessor": { "m": 12, "d":  6 }, 
   "St. Ambrose of Milan, Bishop, Confessor & Doctor": { "m": 12, "d":  7 }, 
-  "Vigil of the Conception B.V.M.": { "m": 12, "d": 7 },
   "The Conception of the B.V.M.": { "m": 12, "d":  8 }, 
   "Day II within Conception Octave": { "m": 12, "d":  9 }, 
   "Day III within Conception Octave": { "m": 12, "d": 10 }, 
@@ -640,7 +638,7 @@ var fixed = {
   "Day VI within the Nativity Octave": { "m": 12, "d": 30 }, 
   "Day VII within the Nativity Octave": { "m": 12, "d": 31 }, 
   "St. Sylvester, Bishop & Confessor": { "m": 12, "d": 31 }
-}
+};
 
 var meta = {
   "": { "class": " "},
@@ -682,6 +680,7 @@ var meta = {
   "Commemoration of St. Peter": { "class": "Comm", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Polycarp of Smyrna, Bishop & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. John Chrysostom, Bishop, Confessor & Doctor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "St. Cyril of Alexandria, Bishop, Confessor, & Doctor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" },
   "The Second Feast of St. Agnes, Virgin Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Martina, Virgin & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Ignatius of Antioch, Bishop & Martyr": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -695,19 +694,19 @@ var meta = {
   "St. Romuald, Abbot": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Apollonia of Alexandria, Virgin & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Scholastica, Virgin": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "The Sunday of Septuagesima": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
+  "Septuagesima Sunday": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "St. Gregory II, Bishop & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Valentine, Priest & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Ss. Faustinus & Jovita, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Simeon of Jerusalem, Bishop & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "The Sunday of Sexagesima": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
+  "Sexagesima Sunday": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "Chair of St. Peter at Antioch": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "y", "rank": 27 }, 
   "Commemoration of Feria": { "class": "F3", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Peter Damian, Bishop, Confessor & Doctor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Vigil of St. Matthias": { "class": "V", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Matthias, Apostle": { "class": "D2", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 10 }, 
   "St. Walburga of Heidenheim, Virgin": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "The Sunday of Quinquagesima": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
+  "Quinquagesima Sunday": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
   "St. Raphael of Brooklyn, Bishop & Confessor": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 26 }, 
   "St. Alexander of Alexandria, Bishop & Confessor": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Ash Wednesday": { "class": "F1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -868,7 +867,7 @@ var meta = {
   "St. Boniface, Bishop & Martyr": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Tuesday within the Octave of Pentecost": { "class": "D1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 7 }, 
   "Ember Wednesday in Pentecost": { "class": "DiO1", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "Thursday within the Octave of Pentecost": { "class": "DiO1", "office": "D1", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "Thursday within the Octave of Pentecost": { "class": "DiO1", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Ember Friday in Pentecost": { "class": "DiO1", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Columba of Iona, Abbot": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Ss. Primus & Felician, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -928,7 +927,7 @@ var meta = {
   "Ss. Cyril and Methodius, Bishops & Confessors": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "The Seven Holy Brothers, with Ss. Rufina & Secunda, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Joseph of Damascus (Priest) & his companions, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
-  "Solemnity of St. Benedict": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
+  "[Solemnity of St. Benedict (Monastics & Oblates Only)]": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "y" }, 
   "St. Pius I, Bishop & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Ss. Nabor & Felix, Martyrs": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Anacletus, Bishop & Martyr": { "class": "M", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
@@ -1101,7 +1100,6 @@ var meta = {
   "St. Nicholas, Bishop & Confessor": { "class": "D", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "Commemoration of Advent Feria": { "class": "F3", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "St. Ambrose of Milan, Bishop, Confessor & Doctor": { "class": "Gd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "rank": 7 }, 
-  "Vigil of the Conception B.V.M.": { "class": "V", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n" }, 
   "The Conception of the B.V.M.": { "class": "D2", "octave": "C", "obligation": "n", "devotion": "y", "secondary": "n" }, 
   "Day II within Conception Octave": { "class": "DiOC", "office": "Sd", "octave": "N", "obligation": "n", "devotion": "n", "secondary": "n", "feast": "The Conception of the B.V.M." }, 
   "II Sunday in Advent": { "class": "Sd2", "octave": "N", "obligation": "y", "devotion": "n", "secondary": "n" }, 
@@ -1235,7 +1233,7 @@ class Kalendar {
   }
 
   static getSeptuagesima(y) {
-    return(Kalendar.getMoveable(y, "The Sunday of Septuagesima"));
+    return(Kalendar.getMoveable(y, "Septuagesima Sunday"));
   }
 
   static getAshWednesday(y) {
@@ -1355,7 +1353,7 @@ class KalendarYear {
     for (var f in fixed) {
       this.addDate(fixed[f]["m"], fixed[f]["d"] + (fixed[f]["addleap"] == "yes" && ly ? 1 : 0), f.trim());
     }
-    this.addHolyName(year);
+    this.addHolyNames(year);
     this.addSundaysAfterEpiphany();
     this.addSundaysAfterTrinity();
     this.addFerias();
@@ -1367,7 +1365,7 @@ class KalendarYear {
     this.removeOctaves();
   }
 
-  addHolyName(y) {
+  addHolyNames(y) {
     var holyname;
     var nyd = new Date(y, 0, 1);
     var first_sun = Kalendar.findNextSunday(subDay(nyd));
@@ -1377,6 +1375,15 @@ class KalendarYear {
       holyname = first_sun
     }
     this.addDate2(holyname, "Most Holy Name of Jesus");
+   
+    var nat = new Date(y, 8, 8);
+    first_sun = Kalendar.findNextSunday(subDay(nat));
+    if (diffDays(first_sun, nat) == 1) { // first_sun is day after then need to move a week
+      holyname = addDays(first_sun, 6)
+    } else {
+      holyname = addDays(first_sun, -1)
+    }
+    this.addDate2(holyname, "The Most Holy Name of Mary")
   }
 
   addDate(m, d, name) {

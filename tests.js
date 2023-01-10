@@ -1,6 +1,6 @@
 import Kalendar from './kalendar.js';
 import Kalendar_old from './kalendar_old.js';
-import {addDay} from './date_calcs.jsm';
+import {addDay} from './date_calcs.js';
 
 QUnit.test("Match new vs. old", function( assert ) {
   function testYear(year) {
@@ -15,7 +15,7 @@ QUnit.test("Match new vs. old", function( assert ) {
       d = addDay(d);
     }
   }
-  [2017, 2018, 2019, 2020, 2021].map(testYear);
+  [2017, 2018, 2019, 2020, 2021, 2022].map(testYear);
 });
 QUnit.test("Advent", function( assert ) {
   function testAdvent(y, m, d) {
