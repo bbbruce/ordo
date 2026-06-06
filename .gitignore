@@ -1,0 +1,23 @@
+# System
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+
+# Local env files
+.env
+.env.local
+
+# Build artifacts
+dist/
+published/*.tmp
+
+# IDEs
+.vscode/
+.idea/
+
+# Agents
+.claude
+.gemini
+.pi
